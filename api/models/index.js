@@ -1,5 +1,5 @@
-const users = require('./users')
+const pharmacies = require("./pharmacies");
 
 module.exports = {
-  users,
-}
+  pharmacies,
+};
