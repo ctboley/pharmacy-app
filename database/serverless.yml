@@ -6,25 +6,17 @@ inputs:
   region: us-east-1
   # Don't delete the Database Table if "serverless remove" is run
   deletionPolicy: retain
-  # Simple, single-table design
+  # Simple table schema
   attributeDefinitions:
-    - AttributeName: hk
-      AttributeType: S
-    - AttributeName: sk
-      AttributeType: S
-    - AttributeName: sk2
+    - AttributeName: _id
       AttributeType: S
   keySchema:
-    - AttributeName: hk
+    - AttributeName: _id
       KeyType: HASH
-    - AttributeName: sk
-      KeyType: RANGE
   globalSecondaryIndexes:
     - IndexName: gsi1
       KeySchema:
-        - AttributeName: sk2
+        - AttributeName: _id
           KeyType: HASH
-        - AttributeName: sk
-          KeyType: RANGE
       Projection:
         ProjectionType: ALL

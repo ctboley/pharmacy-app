@@ -1,58 +1,141 @@
-import React, { Component } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom'
-import Home from './pages/Home/Home'
-import Auth from './pages/Auth/Auth'
-import Dashboard from './pages/Dashboard/Dashboard'
-import { getSession } from './utils'
+import React from "react";
+import PropTypes from "prop-types";
+import CardLayout from "./components/CardLayout";
+import NumberFormat from "react-number-format";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import config from "./config";
+import Pharmacy from "./models/Pharmacy";
 
-export default class App extends Component {
+const App = () => {
+  const [values, setValues] = React.useState({
+    latitude: "",
+    longitude: "",
+  });
+  const [closestPharm, setClosestPharm] = React.useState();
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+  /**
+   * Makes the API call when the Get nearest Pharmacy button is pushed
+   */
+  const handleNearestPharmacy = () => {
+    const lat = document.getElementById("latitude-input").value;
+    const long = document.getElementById("longitude-input").value;
 
-  async componentDidMount() {
-    // console.log(getSession())
-  }
+    if (lat && long) {
+      const raw = JSON.stringify({ latitude: lat, longitude: long });
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+      fetch(`${config.domains.api}/pharmacy`, {
+        method: "POST",
+        headers,
+        body: raw,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const pharmacy = new Pharmacy(data.pharmacy, data.distance);
+          setClosestPharm(pharmacy);
+        })
+        .catch((error) => {
+          console.log(error);
+          window.alert("An error occurred while getting the closet pharmacy");
+        });
+    } else {
+      window.alert("Latitude and Longitude are required");
+    }
+  };
 
-  render() {
-    return (
-      <Router>
-        <Switch>
+  const handleLatAndLongChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-          <Route path='/register'>
-            <Auth />
-          </Route>
+  const cardContent = (
+    <>
+      <TextField
+        label="latitude"
+        value={values.latitude}
+        onChange={handleLatAndLongChange}
+        name="latitude"
+        id="latitude-input"
+        InputProps={{
+          inputComponent: NumberFormatCustom,
+        }}
+      />
+      <TextField
+        label="longitude"
+        value={values.longitude}
+        onChange={handleLatAndLongChange}
+        name="longitude"
+        id="longitude-input"
+        InputProps={{
+          inputComponent: NumberFormatCustom,
+        }}
+      />
+      {closestPharm && (
+        <div>
+          <br />
+          <Typography variant="h6" gutterBottom>
+            Result:
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            Name: {closestPharm.name}
+            <br />
+            Address: {closestPharm.address} <br />
+            {closestPharm.city}, {closestPharm.state} {closestPharm.zip}
+            <br />
+            Distance: {closestPharm.distance} miles
+          </Typography>
+        </div>
+      )}
+    </>
+  );
 
-          <Route path='/login'>
-            <Auth />
-          </Route>
+  return (
+    <CardLayout
+      cardHeaderTitle={"Pharmacy Locator"}
+      cardContent={cardContent}
+      cardActions={
+        <Button
+          size="medium"
+          color="primary"
+          variant="contained"
+          onClick={handleNearestPharmacy}
+        >
+          Get nearest Pharmacy
+        </Button>
+      }
+    />
+  );
+};
 
-          <PrivateRoute
-            exact
-            path='/'
-            component={Dashboard}
-          />
+const NumberFormatCustom = (props) => {
+  const { inputRef, onChange, ...other } = props;
 
-        </Switch>
-      </Router>
-    )
-  }
-}
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+    />
+  );
+};
 
-/**
- * A component to protect routes.
- * Shows Auth page if the user is not authenticated
- */
-const PrivateRoute = ({ component, ...options }) => {
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
-  const session = getSession()
-
-  const finalComponent = session ? Dashboard : Home
-  return <Route {...options} component={finalComponent} />
-}
+export default App;

@@ -2,10 +2,10 @@
  * Global Config
  */
 
-const config = {}
+const config = {};
 
 // Domains
-config.domains = {}
+config.domains = {};
 
 /**
  * API Domain
@@ -13,6 +13,7 @@ config.domains = {}
  * This will enable your front-end to communicate with your back-end.
  * (e.g. 'https://api.mydomain.com' or 'https://091jafsl10.execute-api.us-east-1.amazonaws.com')
  */
-config.domains.api = null
 
-export default config
+config.domains.api = "http://localhost:3000";
+
+export default config;
