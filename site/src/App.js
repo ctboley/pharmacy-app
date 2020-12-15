@@ -129,7 +129,6 @@ const NumberFormatCustom = (props) => {
           },
         });
       }}
-      thousandSeparator
       isNumericString
     />
   );
