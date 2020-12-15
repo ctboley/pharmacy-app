@@ -42,6 +42,8 @@ app: pharmacy-app
 org: your-org
 ```
 
+Install API dependencies by going to `./api` and run `npm install`.
+
 Build the site by going to `./site`, run `npm install`, and then run `npm run build`.
 
 In the root folder of the project, run `serverless deploy`. If prompted, run `serverless login` in a separate terminal.
