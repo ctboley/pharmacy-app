@@ -46,7 +46,7 @@ Install API dependencies by going to `./api` and run `npm install`.
 
 Build the site by going to `./site`, run `npm install`, and then run `npm run build`.
 
-In the root folder of the project, run `serverless deploy`. If prompted, run `serverless login` in a separate terminal.
+In the root folder of the project, run `serverless deploy`. If prompted, run `serverless login` outside of the project directory.
 
 Next, add the API domain manually to the React application in `./site/src/config.js`. The API url can be found by going into `./api`, running `serverless info`, and copying the `url:` value.
 
