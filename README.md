@@ -28,6 +28,13 @@ AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY
 ```
 
+Add your org to `./serverless.yml`
+
+```yml
+app: pharmacy-app
+org: your-org
+```
+
 In the root folder of the project, run `serverless deploy`
 
 Next, add the API domain manually to the React application in `./site/src/config.js`. The API url can be found by going into `./api`, running `serverless info`, and copying the `url:` value.
