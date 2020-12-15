@@ -35,7 +35,9 @@ const getByLatitudeAndLongitude = async (req, res) => {
     req.body.longitude
   );
 
-  !pharmacy ? res.status(404).send() : res.status(200).send(pharmacy);
+  !pharmacy
+    ? res.status(404).send({ message: "No Pharmacy found" })
+    : res.status(200).send(pharmacy);
 };
 
 /**
