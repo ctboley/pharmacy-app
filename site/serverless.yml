@@ -7,5 +7,7 @@ inputs:
     src: ./
     hook: npm run build
     dist: build
+  env:
+    api: ${env:API_URL}
   # Enable this when you want to set a custom domain.
   # domain: ${env:domain}

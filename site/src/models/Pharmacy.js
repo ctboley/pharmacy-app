@@ -10,8 +10,4 @@ export default class Pharmacy {
     this.zip = pharmacy.zip;
     this.distance = distance;
   }
-
-  toString() {
-    return `Name: ${this.name}\nAddress: ${this.address}, ${this.city}, ${this.state} ${this.zip}\nDistance (in miles): ${this.distance}`;
-  }
 }
