@@ -1,5 +1,5 @@
-const pharmacies = require("./pharmacies");
+const Pharmacies = require("./pharmacies");
 
 module.exports = {
-  pharmacies,
+  Pharmacies,
 };

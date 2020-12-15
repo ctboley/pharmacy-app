@@ -54,6 +54,9 @@ const App = () => {
 
   const cardContent = (
     <>
+      <Typography variant="body1" gutterBottom>
+        Enter a latitude and longitude to find a pharmacy.
+      </Typography>
       <TextField
         label="latitude"
         value={values.latitude}
@@ -81,12 +84,12 @@ const App = () => {
             Result:
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Name: {closestPharm.name}
+            <b>Name</b>: {closestPharm.name}
             <br />
-            Address: {closestPharm.address} <br />
+            <b>Address</b>: {closestPharm.address} <br />
             {closestPharm.city}, {closestPharm.state} {closestPharm.zip}
             <br />
-            Distance: {closestPharm.distance} miles
+            <b>Distance:</b> {closestPharm.distance.toFixed(2)} miles
           </Typography>
         </div>
       )}
@@ -95,7 +98,7 @@ const App = () => {
 
   return (
     <CardLayout
-      cardHeaderTitle={"Pharmacy Locator"}
+      cardHeaderTitle={"Pharmacy Finder"}
       cardContent={cardContent}
       cardActions={
         <Button
@@ -112,11 +115,11 @@ const App = () => {
 };
 
 const NumberFormatCustom = (props) => {
-  const { inputRef, onChange, ...other } = props;
+  const { inputRef, onChange, ...rest } = props;
 
   return (
     <NumberFormat
-      {...other}
+      {...rest}
       getInputRef={inputRef}
       onValueChange={(values) => {
         onChange({

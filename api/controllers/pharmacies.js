@@ -1,4 +1,4 @@
-const { pharmacies } = require("../models");
+const { Pharmacies } = require("../models");
 
 /**
  * Inserts a pharmacy based on the request body
@@ -8,7 +8,7 @@ const { pharmacies } = require("../models");
  */
 const insert = async (req, res) => {
   try {
-    await pharmacies.insert(req.body);
+    await Pharmacies.insert(req.body);
   } catch {
     return res.status(400).send({ error: error.message });
   }
@@ -48,7 +48,7 @@ const getByLatitudeAndLongitude = async (req, res) => {
  * @returns {Object}
  */
 const findNearestPharmacy = async (givenLatitude, givenLongitude) => {
-  const { Items } = await pharmacies.getPharmacies(
+  const { Items } = await Pharmacies.getPharmacies(
     givenLatitude,
     givenLongitude
   );
@@ -107,9 +107,9 @@ const findNearestPharmacy = async (givenLatitude, givenLongitude) => {
  *
  * @returns the provided number in radians.
  */
-function toRadians(num) {
+const toRadians = (num) => {
   return (num * Math.PI) / 180;
-}
+};
 
 module.exports = {
   insert,
