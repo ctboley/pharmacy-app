@@ -9,7 +9,8 @@ The following is needed to deploy this application:
 - An Amazon Web Services Account
   - Sign up for one by going [here](https://aws.amazon.com/) and clicking "Create an AWS Account"
 - A Serverless Framework Account
-  - Sign up for on by going [here](https://app.serverless.com/)
+  - Sign up for one by going [here](https://app.serverless.com/)
+    - Create an org when prompted
 - Node.js
   - Install Node.js by going [here](https://nodejs.org/en/) and download the stable version
 
@@ -27,6 +28,8 @@ Create an `.env` file in the root directory. Then, add your AWS credentials to t
 AWS_ACCESS_KEY_ID=YOUR_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY=YOUR_SECRET_ACCESS_KEY
 ```
+
+If needed, a user id and secret can be created by following the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console). When creating a user, select Programmatic access.
 
 Add your org to `./serverless.yml`
 
