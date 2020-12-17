@@ -7,7 +7,7 @@ inputs:
   # Permissions required for the AWS Lambda function to interact with other resources
   roleName: ${output:permissions.name}
   # Enable this when you want to set a custom domain.
-  # domain: api.${env:domain}
+  domain: api.${env:DOMAIN}
   # Environment variables
   env:
     # AWS DynamoDB Table name. Needed for the code to access it.
